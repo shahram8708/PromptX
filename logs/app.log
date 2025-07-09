@@ -1,0 +1,14 @@
+2025-07-09 19:13:38,494 - __main__ - INFO - Starting AI Video Generator Flask Application
+2025-07-09 19:13:38,560 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.182.178.147:5000
+2025-07-09 19:13:38,560 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-09 19:13:38,635 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-07-09 19:13:45,547 - __main__ - INFO - Starting AI Video Generator Flask Application
+2025-07-09 19:13:45,583 - werkzeug - WARNING -  * Debugger is active!
+2025-07-09 19:13:45,620 - werkzeug - INFO -  * Debugger PIN: 291-443-716
+2025-07-09 19:14:43,122 - werkzeug - INFO - 127.0.0.1 - - [09/Jul/2025 19:14:43] "GET / HTTP/1.1" 200 -
+2025-07-09 19:14:43,361 - werkzeug - INFO - 127.0.0.1 - - [09/Jul/2025 19:14:43] "GET /static/css/custom.css HTTP/1.1" 200 -
+2025-07-09 19:14:43,401 - werkzeug - INFO - 127.0.0.1 - - [09/Jul/2025 19:14:43] "GET /static/js/script.js HTTP/1.1" 200 -
+2025-07-09 19:14:43,401 - werkzeug - INFO - 127.0.0.1 - - [09/Jul/2025 19:14:43] "[36mGET /static/images/logo.png HTTP/1.1[0m" 304 -

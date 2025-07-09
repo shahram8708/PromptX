@@ -1,0 +1,306 @@
+{% extends "base.html" %}
+
+{% block title %}PromptX - Create Amazing Videos with AI{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    
+    <div class="row justify-content-center mb-5">
+    <div class="col-lg-8 text-center">
+        <div class="text-center my-5">
+            <h1 class="display-4 fw-bold d-inline-flex align-items-center">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="PromptX Logo"
+                    style="height: 5.5rem; width: 5.5rem;" class="me-2">
+                <span>
+                    <span style="color: #6f42c1;">Prompt</span><span class="text-primary">X</span>
+                </span>
+            </h1>
+        </div>
+
+        <p class="lead text-muted mb-4">
+            Transform your thoughts into full-fledged videos using cutting-edge AI technology.
+            Just describe your idea — and our intelligent system will generate everything from
+            script to visuals, narration, and subtitles, fully AI-powered with no human input.
+        </p>
+
+        <div class="d-flex justify-content-center gap-4 mb-4">
+            <div class="text-center">
+                <i class="fas fa-brain fa-2x text-primary mb-2"></i>
+                <p class="small mb-0">Neural Script Writing</p>
+            </div>
+            <div class="text-center">
+                <i class="fas fa-photo-video fa-2x text-success mb-2"></i>
+                <p class="small mb-0">AI-Generated Visuals</p>
+            </div>
+            <div class="text-center">
+                <i class="fas fa-wave-square fa-2x text-warning mb-2"></i>
+                <p class="small mb-0">Synthetic Voice Narration</p>
+            </div>
+            <div class="text-center">
+                <i class="fas fa-language fa-2x text-info mb-2"></i>
+                <p class="small mb-0">Auto-Captioning Engine</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-gradient text-white text-center py-4"
+                    style="background: linear-gradient(135deg, #007bff, #6610f2);">
+                    <h3 class="mb-0">
+                        <i class="fas fa-sparkles me-2"></i>
+                        Create Your Video
+                    </h3>
+                    <p class="mb-0 opacity-75">Describe your video idea in detail</p>
+                </div>
+                <div class="card-body p-5">
+                    <form id="videoForm" action="{{ url_for('generate_video') }}" method="POST">
+                        <div class="mb-4">
+                            <label for="prompt" class="form-label fw-bold">
+                                <i class="fas fa-lightbulb me-2 text-warning"></i>
+                                Video Description
+                            </label>
+                            <textarea class="form-control form-control-lg" id="prompt" name="prompt" rows="6"
+                                placeholder="Example: Create a video about renewable energy explaining how solar panels work, their benefits for the environment, and why they're becoming more popular. Include information about cost savings and technological advances."
+                                required maxlength="1000"></textarea>
+                            <div class="form-text">
+                                <i class="fas fa-info-circle me-1"></i>
+                                Be specific and descriptive. Include details about the topic, key points to cover, and
+                                the style you want.
+                            </div>
+                            <div class="mt-2">
+                                <small class="text-muted">
+                                    <span id="charCount">0</span>/1000 characters
+                                </small>
+                            </div>
+                        </div>
+
+                        
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">
+                                <i class="fas fa-examples me-2 text-info"></i>
+                                Example Ideas
+                            </label>
+                            <div class="row g-2">
+                                <div class="col-md-6">
+                                    <button type="button" class="btn btn-outline-primary btn-sm w-100 example-btn"
+                                        data-prompt="Create a video about the benefits of meditation and mindfulness for mental health, including simple techniques beginners can try at home.">
+                                        Meditation & Wellness
+                                    </button>
+                                </div>
+                                <div class="col-md-6">
+                                    <button type="button" class="btn btn-outline-success btn-sm w-100 example-btn"
+                                        data-prompt="Explain how artificial intelligence is transforming modern business, including automation, data analysis, and customer service improvements.">
+                                        AI in Business
+                                    </button>
+                                </div>
+                                <div class="col-md-6">
+                                    <button type="button" class="btn btn-outline-warning btn-sm w-100 example-btn"
+                                        data-prompt="Create an educational video about sustainable cooking practices, including tips for reducing food waste and choosing eco-friendly ingredients.">
+                                        Sustainable Cooking
+                                    </button>
+                                </div>
+                                <div class="col-md-6">
+                                    <button type="button" class="btn btn-outline-info btn-sm w-100 example-btn"
+                                        data-prompt="Discuss the future of remote work, including productivity tips, essential tools, and how to maintain work-life balance while working from home.">
+                                        Remote Work Future
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg" id="generateBtn">
+                                <i class="fas fa-play me-2"></i>
+                                Generate Video
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="row justify-content-center mt-4 d-none" id="processingStatus">
+        <div class="col-lg-8">
+            <div class="card border-primary">
+                <div class="card-body text-center py-4">
+                    <div class="spinner-border text-primary mb-3" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <h5 class="card-title text-primary">Generating Your Video</h5>
+                    <p class="card-text text-muted mb-3" id="statusMessage">Starting video generation...</p>
+
+                    
+                    <div class="row text-center">
+                        <div class="col-6 col-md-3 mb-3">
+                            <div class="processing-step" data-step="script">
+                                <i class="fas fa-file-alt fa-2x mb-2 text-muted" id="step1Icon"></i>
+                                <p class="small mb-0">Generating Script</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3 mb-3">
+                            <div class="processing-step" data-step="videos">
+                                <i class="fas fa-video fa-2x mb-2 text-muted" id="step2Icon"></i>
+                                <p class="small mb-0">Generating Visuals with AI</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3 mb-3">
+                            <div class="processing-step" data-step="audio">
+                                <i class="fas fa-microphone fa-2x mb-2 text-muted" id="step3Icon"></i>
+                                <p class="small mb-0">Creating Audio</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3 mb-3">
+                            <div class="processing-step" data-step="merge">
+                                <i class="fas fa-cogs fa-2x mb-2 text-muted" id="step4Icon"></i>
+                                <p class="small mb-0">Merging Video</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="progress mt-3" style="height: 8px;">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                            style="width: 25%" id="progressBar"></div>
+                    </div>
+
+                    <p class="text-muted mt-3 mb-0">
+                        <small>
+                            <i class="fas fa-clock me-1"></i>
+                            This usually takes 2-5 minutes depending on video length
+                        </small>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   
+<div class="row mt-5">
+    <div class="col-12">
+        <h2 class="text-center mb-4">How It Works</h2>
+        <div class="row g-4">
+            <div class="col-md-3">
+                <div class="text-center">
+                    <div class="feature-icon bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                        style="width: 60px; height: 60px;">
+                        <i class="fas fa-edit"></i>
+                    </div>
+                    <h5>1. Describe Your Video</h5>
+                    <p class="text-muted">Enter your idea or topic — the more context you give, the more tailored your video becomes.</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="text-center">
+                    <div class="feature-icon bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                        style="width: 60px; height: 60px;">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h5>2. AI Generates Script</h5>
+                    <p class="text-muted">Our AI deeply understands your input and crafts a natural, structured script with meaningful flow.</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="text-center">
+                    <div class="feature-icon bg-warning text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                        style="width: 60px; height: 60px;">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <h5>3. Visuals & Voice Created</h5>
+                    <p class="text-muted">Advanced AI models synthesize realistic visuals and generate human-like voiceovers automatically.</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="text-center">
+                    <div class="feature-icon bg-info text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                        style="width: 60px; height: 60px;">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h5>4. Get Your Video</h5>
+                    <p class="text-muted">Your complete AI-generated video — including visuals, voice, and subtitles — is ready to use or share.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    $(document).ready(function () {
+        
+        $('#prompt').on('input', function () {
+            const length = $(this).val().length;
+            $('#charCount').text(length);
+
+            if (length > 800) {
+                $('#charCount').addClass('text-warning');
+            } else {
+                $('#charCount').removeClass('text-warning');
+            }
+        });
+
+        
+        $('.example-btn').click(function () {
+            const prompt = $(this).data('prompt');
+            $('#prompt').val(prompt);
+            $('#prompt').trigger('input'); 
+        });
+
+        
+        $('#videoForm').submit(function (e) {
+            const prompt = $('#prompt').val().trim();
+            if (prompt.length < 10) {
+                e.preventDefault();
+                alert('Please provide a more detailed description (at least 10 characters).');
+                return false;
+            }
+
+            
+            $('#processingStatus').removeClass('d-none');
+            $('#generateBtn').prop('disabled', true);
+            $('#generateBtn').html('<i class="spinner-border spinner-border-sm me-2"></i>Processing...');
+
+            
+            $('html, body').animate({
+                scrollTop: $('#processingStatus').offset().top - 100
+            }, 500);
+
+            
+            updateProcessingStatus();
+        });
+
+        function updateProcessingStatus() {
+            const steps = [
+                { id: 'step1Icon', message: 'Analyzing your prompt and generating script...' },
+                { id: 'step2Icon', message: 'Searching for relevant stock videos...' },
+                { id: 'step3Icon', message: 'Creating AI voiceover narration...' },
+                { id: 'step4Icon', message: 'Merging video, audio, and subtitles...' }
+            ];
+
+            let currentStep = 0;
+
+            const interval = setInterval(() => {
+                if (currentStep < steps.length) {
+                    const step = steps[currentStep];
+                    $(`#${step.id}`).removeClass('text-muted').addClass('text-primary');
+                    $('#statusMessage').text(step.message);
+
+                    const progress = ((currentStep + 1) / steps.length) * 100;
+                    $('#progressBar').css('width', progress + '%');
+
+                    currentStep++;
+                } else {
+                    clearInterval(interval);
+                }
+            }, 2000);
+        }
+    });
+</script>
+{% endblock %}
