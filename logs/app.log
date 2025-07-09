@@ -12,3 +12,6 @@
 2025-07-09 19:14:43,361 - werkzeug - INFO - 127.0.0.1 - - [09/Jul/2025 19:14:43] "GET /static/css/custom.css HTTP/1.1" 200 -
 2025-07-09 19:14:43,401 - werkzeug - INFO - 127.0.0.1 - - [09/Jul/2025 19:14:43] "GET /static/js/script.js HTTP/1.1" 200 -
 2025-07-09 19:14:43,401 - werkzeug - INFO - 127.0.0.1 - - [09/Jul/2025 19:14:43] "[36mGET /static/images/logo.png HTTP/1.1[0m" 304 -
+2025-07-09 19:18:30,708 - werkzeug - INFO -  * Detected change in 'C:\\Users\\shahr\\anaconda3\\Lib\\site-packages\\gevent\\tests\\_blocks_at_top_level.py', reloading
+2025-07-09 19:18:30,708 - werkzeug - INFO -  * Detected change in 'C:\\Users\\shahr\\anaconda3\\Lib\\site-packages\\gevent\\tests\\_imports_at_top_level.py', reloading
+2025-07-09 19:18:30,708 - werkzeug - INFO -  * Detected change in 'C:\\Users\\shahr\\anaconda3\\Lib\\site-packages\\gevent\\tests\\_imports_imports_at_top_level.py', reloading
