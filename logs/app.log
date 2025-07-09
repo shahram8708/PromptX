@@ -15,3 +15,7 @@
 2025-07-09 19:18:30,708 - werkzeug - INFO -  * Detected change in 'C:\\Users\\shahr\\anaconda3\\Lib\\site-packages\\gevent\\tests\\_blocks_at_top_level.py', reloading
 2025-07-09 19:18:30,708 - werkzeug - INFO -  * Detected change in 'C:\\Users\\shahr\\anaconda3\\Lib\\site-packages\\gevent\\tests\\_imports_at_top_level.py', reloading
 2025-07-09 19:18:30,708 - werkzeug - INFO -  * Detected change in 'C:\\Users\\shahr\\anaconda3\\Lib\\site-packages\\gevent\\tests\\_imports_imports_at_top_level.py', reloading
+2025-07-09 19:18:32,514 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-07-09 19:18:51,015 - __main__ - INFO - Starting AI Video Generator Flask Application
+2025-07-09 19:18:51,055 - werkzeug - WARNING -  * Debugger is active!
+2025-07-09 19:18:51,105 - werkzeug - INFO -  * Debugger PIN: 291-443-716
