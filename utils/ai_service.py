@@ -25,7 +25,7 @@ def generate_script_from_prompt(prompt: str) -> Dict[str, any]:
     """
     try:
         
-        api_key = "AIzaSyC1dSEI8aENjszrP9IcqZYX561QV8ASHa0"
+        api_key = ""
         if not api_key:
             raise ValueError("GEMINI_API_KEY or GOOGLE_API_KEY not found in environment variables")
         
